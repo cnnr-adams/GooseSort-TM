@@ -40,10 +40,17 @@ function reversesort(map) {
     });
 }
 sorts[currentSort](imgUpvoteMap);
+let currentTime = 10;
 setInterval(() => {
-    currentSort++;
-    currentSort = currentSort % sorts.length;
-}, 10000);
+    currentTime--;
+
+    if (currentTime <= 0) {
+        currentSort++;
+        currentSort = currentSort % sorts.length;
+        currentTime = 10;
+    }
+    io.emit('newsort', currentTime);
+}, 1000);
 // app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 
 io.on('connection', function (socket) {

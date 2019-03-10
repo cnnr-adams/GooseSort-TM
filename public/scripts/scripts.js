@@ -12,7 +12,11 @@ socket.on('data', (data) => {
         el.style.order = value.sortPosition;
         el.childNodes[3].childNodes[5].innerHTML = value.votes;
     });
-})
+});
+socket.on('newsort', (time) => {
+    console.log(time);
+    document.getElementById("num").innerHTML = time;
+});
 function send(name, votes) {
     socket.emit("voteChange", name, votes);
 }
