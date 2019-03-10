@@ -17,7 +17,7 @@ imgUpvoteMap.set("h", { votes: 0, path: "images/mrgoose.jpg", sortPosition: 0 })
 imgUpvoteMap.set("i", { votes: 0, path: "images/plush.jpg", sortPosition: 0 });
 imgUpvoteMap.set("j", { votes: 0, path: "images/ryangosling.jpg", sortPosition: 0 });
 
-const sorts = [["Normal", normalsort], ["Reverse", reversesort], ["Word Sort", wordsort]];
+const sorts = [["Normal", normalsort], ["Reverse", reversesort], ["Word Sort", wordsort], ["Last Digit", lastdigit]];
 let currentSort = 0;
 // const favicon = require("serve-favicon");
 // const path = require('path');
@@ -36,6 +36,13 @@ function wordsort(map) {
         value.sortPosition = convert(value.votes).length;
     });
 }
+
+function lastdigit(map) {
+    map.forEach((value, key) => {
+        value.sortPosition = value.votes % 10;
+    });
+}
+
 function is_numeric(mixed_var) {
     return (typeof mixed_var === 'number' || typeof mixed_var === 'string') && mixed_var !== '' && !isNaN(mixed_var);
 }
