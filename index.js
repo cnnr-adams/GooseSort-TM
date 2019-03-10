@@ -167,10 +167,14 @@ setInterval(() => {
     if (currentTime <= 0) {
         currentSort++;
         if (currentSort >= sorts.length) {
-            map.forEach((value, key) => {
-                value.votes = 0;
-                value.path = "images/"
+            imgUpvoteMap.forEach((value, key) => {
+                //  value.votes = 0;
+                value.path = "images/jumpscare.jpg";
+
             });
+            io.emit('data', JSON.stringify(Array.from(imgUpvoteMap)));
+            io.emit('jumpscare', "hi");
+            setTimeout(() => { io.emit('endJumpscare'); io.emit('data', JSON.stringify(Array.from(imgUpvoteMap))); }, 500);
         }
         currentSort = currentSort % sorts.length;
         currentTime = 10;
