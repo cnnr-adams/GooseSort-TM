@@ -1,0 +1,22 @@
+{
+  "name": "nodejs-webserver-template",
+  "version": "1.0.0",
+  "description": "Simple NodeJS Express template so I don't have to keep remaking it",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cnnr-adams/NodeJS-Webserver-Template.git"
+  },
+  "author": "Connor Adams",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/cnnr-adams/NodeJS-Webserver-Template/issues"
+  },
+  "homepage": "https://github.com/cnnr-adams/NodeJS-Webserver-Template#readme",
+  "dependencies": {
+    "express": "^4.16.4"
+  }
+}
