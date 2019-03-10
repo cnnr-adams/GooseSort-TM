@@ -136,6 +136,8 @@ setInterval(() => {
         currentSort++;
         currentSort = currentSort % sorts.length;
         currentTime = 10;
+        sorts[currentSort][1](imgUpvoteMap);
+        io.emit('data', JSON.stringify(Array.from(imgUpvoteMap)));
     }
     io.emit('newsort', `Current algorithm: ${sorts[currentSort][0]}, new algorithm in ${currentTime}s`);
 }, 1000);
