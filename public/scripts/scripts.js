@@ -19,9 +19,12 @@ let isScared = false;
 socket.on('jumpscare', () => { console.log("scared"); isScared = true });
 socket.on('endJumpscare', () => isScared = false);
 socket.on('newsort', (time) => {
-    console.log(time);
     document.getElementById("num").innerHTML = time;
 });
+socket.on('newcolor', (color) => {
+    console.log(color);
+    document.body.style.backgroundColor = color;
+})
 function send(name, votes) {
     socket.emit("voteChange", name, votes);
 }

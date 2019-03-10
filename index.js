@@ -159,6 +159,14 @@ function convert(number) {
     }
     return res;
 }
+function getRandomColor() {
+    var letters = '0123456789ABCDEF';
+    var color = '#';
+    for (var i = 0; i < 6; i++) {
+        color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
+}
 sort();
 let currentTime = 10;
 setInterval(() => {
@@ -170,8 +178,8 @@ setInterval(() => {
             imgUpvoteMap.forEach((value, key) => {
                 //  value.votes = 0;
                 value.path = "images/jumpscare.jpg";
-
             });
+
             io.emit('data', JSON.stringify(Array.from(imgUpvoteMap)));
             io.emit('jumpscare', "hi");
             setTimeout(() => { io.emit('endJumpscare'); io.emit('data', JSON.stringify(Array.from(imgUpvoteMap))); }, 500);
@@ -180,8 +188,9 @@ setInterval(() => {
         currentTime = 10;
         sort();
         io.emit('data', JSON.stringify(Array.from(imgUpvoteMap)));
+        io.emit('newcolor', getRandomColor());
     }
-    io.emit('newsort', `Current algorithm: ${sorts[currentSort][0]}, new algorithm in ${currentTime}s`);
+    io.emit('newsort', `New algorithm in ${currentTime}s`);
 }, 1000);
 // app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 

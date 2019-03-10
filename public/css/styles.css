@@ -1,10 +1,12 @@
 html {
     background-color:#ffffff;
     font-family: 'Source Sans Pro', sans-serif;
+    height: 100%;
 }
 body {
     font-size: 1em;
     margin: 0;
+    height: 100%;
 }
 @import url(https://fonts.googleapis.com/css?family=Noto+Sans:400,700,400italic,700italic);
 /* try 50% */
@@ -75,4 +77,9 @@ img {
   }
 .main {
     display: flex;
+}
+.bigcenter {
+    text-align: center;
+    font-size: 100px;
+    font-style: bold;
 }
