@@ -22,7 +22,6 @@ imgUpvoteMap.set("j", { votes: 0, path: "/..", sortPosition: 0 });
 // app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 
 io.on('connection', function (socket) {
-    console.log(imgUpvoteMap);
     socket.emit('data', JSON.stringify(Array.from(imgUpvoteMap)));
     socket.on('voteChange', (name, obj) => {
         imgUpvoteMap.set(name, obj);

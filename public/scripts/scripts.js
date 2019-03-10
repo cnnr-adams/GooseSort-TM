@@ -5,8 +5,31 @@ socket.on('data', (data) => {
     data = new Map(JSON.parse(data));
     data.forEach((value, name) => {
         var el = document.getElementById(name);
-        console.log(el);
-        el.childNodes.getElementsByTagName("img")[0].src = value.path;
-        el.childNodes.getElementsByClassName("vote roundrect")[0].getElementsByClassName("count")[0].body = value.votes;
+        el.childNodes[1].src = value.path;
+        el.childNodes[3].childNodes[5].innerHTML = value.votes;
     });
 })
+function send(name, votes) {
+    socket.emit("voteChange", name, votes);
+}
+$(function () {
+    $(".increment").click(function () {
+        var count = parseInt($("~ .count", this).text());
+
+        if ($(this).hasClass("up")) {
+            count = count + 1;
+
+            $("~ .count", this).text(count);
+        } else {
+            count = count - 1;
+            $("~ .count", this).text(count);
+        }
+        send($(this).parent().parent().attr('id'), count);
+
+        $(this).parent().addClass("bump");
+
+        setTimeout(function () {
+            $(this).parent().removeClass("bump");
+        }, 400);
+    });
+});
