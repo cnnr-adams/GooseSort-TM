@@ -6,8 +6,8 @@ const http = require('http').Server(app);
 const io = require('socket.io')(http);
 
 let imgUpvoteMap = new Map();
-imgUpvoteMap.set("a", { votes: 0, path: "/..", sortPosition: 0 });
-imgUpvoteMap.set("b", { votes: 0, path: "/..", sortPosition: 0 });
+imgUpvoteMap.set("a", { votes: 0, path: "https://download.ams.birds.cornell.edu/api/v1/asset/59953191/1800", sortPosition: 0 });
+imgUpvoteMap.set("b", { votes: 0, path: "https://download.ams.birds.cornell.edu/api/v1/asset/59953191/1800", sortPosition: 0 });
 imgUpvoteMap.set("c", { votes: 0, path: "/..", sortPosition: 0 });
 imgUpvoteMap.set("d", { votes: 0, path: "/..", sortPosition: 0 });
 imgUpvoteMap.set("e", { votes: 0, path: "/..", sortPosition: 0 });
@@ -23,9 +23,11 @@ imgUpvoteMap.set("j", { votes: 0, path: "/..", sortPosition: 0 });
 
 io.on('connection', function (socket) {
     socket.emit('data', JSON.stringify(Array.from(imgUpvoteMap)));
-    socket.on('voteChange', (name, obj) => {
+    socket.on('voteChange', (name, votes) => {
+        let obj = imgUpvoteMap.get(name);
+        obj.votes = votes;
         imgUpvoteMap.set(name, obj);
-        socket.broadcast.emit('data', imgUpvoteMap);
+        socket.broadcast.emit('data', JSON.stringify(Array.from(imgUpvoteMap)));
     });
 });
 
