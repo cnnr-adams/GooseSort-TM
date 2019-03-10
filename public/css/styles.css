@@ -64,12 +64,14 @@ img {
     max-width: 10rem;
     margin: 1rem;
     text-align: center;
+    top: 50%;
   }
 
   .duck {
     display: block;
     float: left;
     width: 10%;
+    top: 50%;
   }
 .main {
     display: flex;
