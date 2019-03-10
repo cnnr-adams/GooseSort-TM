@@ -39,6 +39,9 @@ function wordsort(map) {
 
 function lastdigit(map) {
     map.forEach((value, key) => {
+        if (value.votes < 0) {
+            value.votes *= -1;
+        }
         value.sortPosition = value.votes % 10;
     });
 }
