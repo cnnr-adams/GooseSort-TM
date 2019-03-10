@@ -17,27 +17,105 @@ imgUpvoteMap.set("h", { votes: 0, path: "images/mrgoose.jpg", sortPosition: 0 })
 imgUpvoteMap.set("i", { votes: 0, path: "images/plush.jpg", sortPosition: 0 });
 imgUpvoteMap.set("j", { votes: 0, path: "images/ryangosling.jpg", sortPosition: 0 });
 
-const sorts = [["Normal", normalsort], ["Reverse", reversesort]];
+const sorts = [["Normal", normalsort], ["Reverse", reversesort], ["Word Sort", wordsort]];
 let currentSort = 0;
 // const favicon = require("serve-favicon");
 // const path = require('path');
 function normalsort(map) {
-    let arr = Array.from(map);
-    arr.sort((a, b) => {
-        return a[1].votes > b[1].votes;
-    });
-    arr.forEach((el, index) => {
-        map.get(el[0]).sortPosition = index;
+    map.forEach((value, key) => {
+        value.sortPosition = value.votes;
     });
 }
 function reversesort(map) {
-    let arr = Array.from(map);
-    arr.sort((a, b) => {
-        return a[1].votes <= b[1].votes;
+    map.forEach((value, key) => {
+        value.sortPosition = -value.votes;
     });
-    arr.forEach((el, index) => {
-        map.get(el[0]).sortPosition = index;
+}
+function wordsort(map) {
+    map.forEach((value, key) => {
+        value.sortPosition = convert(value.votes).length;
     });
+}
+function is_numeric(mixed_var) {
+    return (typeof mixed_var === 'number' || typeof mixed_var === 'string') && mixed_var !== '' && !isNaN(mixed_var);
+}
+function convert(number) {
+    let isn = number < 0;
+    if (number === 0) return "zero";
+    number = Math.abs(number);
+    if (!is_numeric(number)) {
+        console.log("Not a number = " + number);
+        return "";
+    }
+
+    var quintillion = Math.floor(number / 1000000000000000000); /* quintillion */
+    number -= quintillion * 1000000000000000000;
+    var quar = Math.floor(number / 1000000000000000); /* quadrillion */
+    number -= quar * 1000000000000000;
+    var trin = Math.floor(number / 1000000000000); /* trillion */
+    number -= trin * 1000000000000;
+    var Gn = Math.floor(number / 1000000000); /* billion */
+    number -= Gn * 1000000000;
+    var million = Math.floor(number / 1000000); /* million */
+    number -= million * 1000000;
+    var Hn = Math.floor(number / 1000); /* thousand */
+    number -= Hn * 1000;
+    var Dn = Math.floor(number / 100); /* Tens (deca) */
+    number = number % 100; /* Ones */
+    var tn = Math.floor(number / 10);
+    var one = Math.floor(number % 10);
+    var res = "";
+
+    if (quintillion > 0) {
+        res += (convert_number(quintillion) + " quintillion");
+    }
+    if (quar > 0) {
+        res += (convert_number(quar) + " quadrillion");
+    }
+    if (trin > 0) {
+        res += (convert_number(trin) + " trillion");
+    }
+    if (Gn > 0) {
+        res += (convert_number(Gn) + " billion");
+    }
+    if (million > 0) {
+        res += (((res == "") ? "" : " ") + convert_number(million) + " million");
+    }
+    if (Hn > 0) {
+        res += (((res == "") ? "" : " ") + convert_number(Hn) + " Thousand");
+    }
+
+    if (Dn) {
+        res += (((res == "") ? "" : " ") + convert_number(Dn) + " hundred");
+    }
+
+
+    var ones = Array("", "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten", "Eleven", "Twelve", "Thirteen", "Fourteen", "Fifteen", "Sixteen", "Seventeen", "Eightteen", "Nineteen");
+    var tens = Array("", "", "Twenty", "Thirty", "Fourty", "Fifty", "Sixty", "Seventy", "Eigthy", "Ninety");
+
+    if (tn > 0 || one > 0) {
+        if (!(res == "")) {
+            res += " and ";
+        }
+        if (tn < 2) {
+            res += ones[tn * 10 + one];
+        } else {
+
+            res += tens[tn];
+            if (one > 0) {
+                res += ("-" + ones[one]);
+            }
+        }
+    }
+
+    if (res == "") {
+        console.log("Empty = " + number);
+        res = "";
+    }
+    if (isn) {
+        res += "Negative"
+    }
+    return res;
 }
 sorts[currentSort][1](imgUpvoteMap);
 let currentTime = 10;
