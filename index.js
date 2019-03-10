@@ -19,7 +19,6 @@ imgUpvoteMap.set("j", { votes: 0, path: "images/ryangosling.jpg", sortPosition: 
 // const favicon = require("serve-favicon");
 // const path = require('path');
 function simplesort(map) {
-    console.log(Array.from(map));
     let arr = Array.from(map);
     arr.sort((a, b) => {
         return a[1].votes > b[1].votes;
@@ -27,7 +26,6 @@ function simplesort(map) {
     arr.forEach((el, index) => {
         map.get(el[0]).sortPosition = index;
     });
-    console.log("after", Array.from(map));
 }
 // app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 
