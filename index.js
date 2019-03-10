@@ -17,7 +17,7 @@ imgUpvoteMap.set("h", { votes: 0, path: "images/mrgoose.jpg", sortPosition: 0 })
 imgUpvoteMap.set("i", { votes: 0, path: "images/plush.jpg", sortPosition: 0 });
 imgUpvoteMap.set("j", { votes: 0, path: "images/ryangosling.jpg", sortPosition: 0 });
 
-const sorts = [normalsort, reversesort];
+const sorts = [["Normal", normalsort], ["Reverse", reversesort]];
 let currentSort = 0;
 // const favicon = require("serve-favicon");
 // const path = require('path');
@@ -39,7 +39,7 @@ function reversesort(map) {
         map.get(el[0]).sortPosition = index;
     });
 }
-sorts[currentSort](imgUpvoteMap);
+sorts[currentSort][1](imgUpvoteMap);
 let currentTime = 10;
 setInterval(() => {
     currentTime--;
@@ -49,7 +49,7 @@ setInterval(() => {
         currentSort = currentSort % sorts.length;
         currentTime = 10;
     }
-    io.emit('newsort', currentTime);
+    io.emit('newsort', `Current algorithm: ${sorts[currentSort][0]}, new algorithm in ${currentTime}s`);
 }, 1000);
 // app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 
@@ -59,7 +59,7 @@ io.on('connection', function (socket) {
         let obj = imgUpvoteMap.get(name);
         obj.votes = votes;
         imgUpvoteMap.set(name, obj);
-        sorts[currentSort](imgUpvoteMap);
+        sorts[currentSort][1](imgUpvoteMap);
         socket.broadcast.emit('data', JSON.stringify(Array.from(imgUpvoteMap)));
         socket.emit('data', JSON.stringify(Array.from(imgUpvoteMap)));
     });
