@@ -6,8 +6,8 @@ const http = require('http').Server(app);
 const io = require('socket.io')(http);
 
 let imgUpvoteMap = new Map();
-imgUpvoteMap.set("a", { votes: 0, path: "https://download.ams.birds.cornell.edu/api/v1/asset/59953191/1800", sortPosition: 0 });
-imgUpvoteMap.set("b", { votes: 0, path: "https://download.ams.birds.cornell.edu/api/v1/asset/59953191/1800", sortPosition: 0 });
+imgUpvoteMap.set("a", { votes: 0, path: "https://download.ams.birds.cornell.edu/api/v1/asset/59953191/1800", sortPosition: 3 });
+imgUpvoteMap.set("b", { votes: 0, path: "https://download.ams.birds.cornell.edu/api/v1/asset/59953191/1800", sortPosition: 2 });
 imgUpvoteMap.set("c", { votes: 0, path: "/..", sortPosition: 0 });
 imgUpvoteMap.set("d", { votes: 0, path: "/..", sortPosition: 0 });
 imgUpvoteMap.set("e", { votes: 0, path: "/..", sortPosition: 0 });

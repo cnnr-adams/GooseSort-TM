@@ -5,7 +5,10 @@ socket.on('data', (data) => {
     data = new Map(JSON.parse(data));
     data.forEach((value, name) => {
         var el = document.getElementById(name);
+        //   console.log(el);
+        //   el = el.getElementById(name);
         el.childNodes[1].src = value.path;
+        el.style.order = value.sortPosition;
         el.childNodes[3].childNodes[5].innerHTML = value.votes;
     });
 })

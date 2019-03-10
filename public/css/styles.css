@@ -71,3 +71,6 @@ img {
     float: left;
     width: 10%;
   }
+.main {
+    display: flex;
+}
