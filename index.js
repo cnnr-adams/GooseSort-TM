@@ -6,16 +6,16 @@ const http = require('http').Server(app);
 const io = require('socket.io')(http);
 
 let imgUpvoteMap = new Map();
-imgUpvoteMap.set("a", { votes: 0, path: "images/attack.jpg", sortPosition: 3 });
-imgUpvoteMap.set("b", { votes: 0, path: "images/cat.jpg", sortPosition: 2 });
-imgUpvoteMap.set("c", { votes: 0, path: "images/coat.jpg", sortPosition: 0 });
-imgUpvoteMap.set("d", { votes: 0, path: "images/devil.jpeg", sortPosition: 0 });
-imgUpvoteMap.set("e", { votes: 0, path: "images/flying.jpeg", sortPosition: 0 });
-imgUpvoteMap.set("f", { votes: 0, path: "images/gosling.jpg", sortPosition: 0 });
-imgUpvoteMap.set("g", { votes: 0, path: "images/iconic.JPG", sortPosition: 0 });
-imgUpvoteMap.set("h", { votes: 0, path: "images/mrgoose.jpg", sortPosition: 0 });
-imgUpvoteMap.set("i", { votes: 0, path: "images/plush.jpg", sortPosition: 0 });
-imgUpvoteMap.set("j", { votes: 0, path: "images/ryangosling.jpg", sortPosition: 0 });
+imgUpvoteMap.set("a", { votes: 0, path: "images/attack.jpg", saved: "images/attack.jpg", sortPosition: 3 });
+imgUpvoteMap.set("b", { votes: 0, path: "images/cat.jpg", saved: "images/cat.jpg", sortPosition: 2 });
+imgUpvoteMap.set("c", { votes: 0, path: "images/coat.jpg", saved: "images/coat.jpg", sortPosition: 0 });
+imgUpvoteMap.set("d", { votes: 0, path: "images/devil.jpeg", saved: "images/devil.jpeg", sortPosition: 0 });
+imgUpvoteMap.set("e", { votes: 0, path: "images/flying.jpeg", saved: "images/flying.jpeg", sortPosition: 0 });
+imgUpvoteMap.set("f", { votes: 0, path: "images/gosling.jpg", saved: "images/gosling.jpg", sortPosition: 0 });
+imgUpvoteMap.set("g", { votes: 0, path: "images/iconic.JPG", saved: "images/iconic.JPG", sortPosition: 0 });
+imgUpvoteMap.set("h", { votes: 0, path: "images/mrgoose.jpg", saved: "images/mrgoose.jpg", sortPosition: 0 });
+imgUpvoteMap.set("i", { votes: 0, path: "images/plush.jpg", saved: "images/plush.jpg", sortPosition: 0 });
+imgUpvoteMap.set("j", { votes: 0, path: "images/ryangosling.jpg", saved: "images/ryangosling.jpg", sortPosition: 0 });
 
 const sorts = [["Normal", normalsort], ["Reverse", reversesort], ["Word Sort", wordsort], ["Last Digit", lastdigit], ["Just fuck my shit up bro", fuckmyshitup]];
 let currentSort = 0;
@@ -47,6 +47,32 @@ function lastdigit(map) {
     });
 }
 
+function pictureupdates(map) {
+    map.forEach((value, key) => {
+        switch (value.votes) {
+            case 69:
+                value.path = "images/69.jpg";
+                break;
+            case -1:
+                value.path = "images/vangry.png";
+                break;
+            case 420:
+                value.path = "images/420.jpg";
+                break;
+            case 42:
+                value.path = "images/42.jpeg";
+                break;
+            default:
+                value.path = value.saved;
+                break;
+        }
+    });
+}
+
+function sort() {
+    pictureupdates(imgUpvoteMap);
+    sorts[currentSort][1](imgUpvoteMap);
+}
 function fuckmyshitup(map) {
     map.forEach((value, key) => {
         value.sortPosition = Math.floor(Math.random() * 10);
@@ -133,16 +159,22 @@ function convert(number) {
     }
     return res;
 }
-sorts[currentSort][1](imgUpvoteMap);
+sort();
 let currentTime = 10;
 setInterval(() => {
     currentTime--;
 
     if (currentTime <= 0) {
         currentSort++;
+        if (currentSort >= sorts.length) {
+            map.forEach((value, key) => {
+                value.votes = 0;
+                value.path = "images/"
+            });
+        }
         currentSort = currentSort % sorts.length;
         currentTime = 10;
-        sorts[currentSort][1](imgUpvoteMap);
+        sort();
         io.emit('data', JSON.stringify(Array.from(imgUpvoteMap)));
     }
     io.emit('newsort', `Current algorithm: ${sorts[currentSort][0]}, new algorithm in ${currentTime}s`);
@@ -155,7 +187,7 @@ io.on('connection', function (socket) {
         let obj = imgUpvoteMap.get(name);
         obj.votes = votes;
         imgUpvoteMap.set(name, obj);
-        sorts[currentSort][1](imgUpvoteMap);
+        sort();
         socket.broadcast.emit('data', JSON.stringify(Array.from(imgUpvoteMap)));
         socket.emit('data', JSON.stringify(Array.from(imgUpvoteMap)));
     });
