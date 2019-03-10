@@ -6,16 +6,16 @@ const http = require('http').Server(app);
 const io = require('socket.io')(http);
 
 let imgUpvoteMap = new Map();
-imgUpvoteMap.set("a", { votes: 0, path: "https://download.ams.birds.cornell.edu/api/v1/asset/59953191/1800", sortPosition: 3 });
-imgUpvoteMap.set("b", { votes: 0, path: "https://download.ams.birds.cornell.edu/api/v1/asset/59953191/1800", sortPosition: 2 });
-imgUpvoteMap.set("c", { votes: 0, path: "/..", sortPosition: 0 });
-imgUpvoteMap.set("d", { votes: 0, path: "/..", sortPosition: 0 });
-imgUpvoteMap.set("e", { votes: 0, path: "/..", sortPosition: 0 });
-imgUpvoteMap.set("f", { votes: 0, path: "/..", sortPosition: 0 });
-imgUpvoteMap.set("g", { votes: 0, path: "/..", sortPosition: 0 });
-imgUpvoteMap.set("h", { votes: 0, path: "/..", sortPosition: 0 });
-imgUpvoteMap.set("i", { votes: 0, path: "/..", sortPosition: 0 });
-imgUpvoteMap.set("j", { votes: 0, path: "/..", sortPosition: 0 });
+imgUpvoteMap.set("a", { votes: 0, path: "images/attack.jpg", sortPosition: 3 });
+imgUpvoteMap.set("b", { votes: 0, path: "images/cat.jpg", sortPosition: 2 });
+imgUpvoteMap.set("c", { votes: 0, path: "images/coat.jpg", sortPosition: 0 });
+imgUpvoteMap.set("d", { votes: 0, path: "images/devil.jpeg", sortPosition: 0 });
+imgUpvoteMap.set("e", { votes: 0, path: "images/flying.jpeg", sortPosition: 0 });
+imgUpvoteMap.set("f", { votes: 0, path: "images/gosling.jpg", sortPosition: 0 });
+imgUpvoteMap.set("g", { votes: 0, path: "images/iconic.JPG", sortPosition: 0 });
+imgUpvoteMap.set("h", { votes: 0, path: "images/mrgoose.jpg", sortPosition: 0 });
+imgUpvoteMap.set("i", { votes: 0, path: "images/plush.jpg", sortPosition: 0 });
+imgUpvoteMap.set("j", { votes: 0, path: "images/ryangosling.jpg", sortPosition: 0 });
 // const favicon = require("serve-favicon");
 // const path = require('path');
 
