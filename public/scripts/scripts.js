@@ -2,6 +2,7 @@ console.log("test");
 var socket = io();
 socket.emit('test', "hi");
 socket.on('data', (data) => {
+    console.log("new");
     data = new Map(JSON.parse(data));
     data.forEach((value, name) => {
         var el = document.getElementById(name);
