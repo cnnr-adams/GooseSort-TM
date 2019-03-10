@@ -109,26 +109,26 @@ function convert(number) {
     var res = "";
 
     if (quintillion > 0) {
-        res += (convert_number(quintillion) + " quintillion");
+        res += ("n quintillion");
     }
     if (quar > 0) {
-        res += (convert_number(quar) + " quadrillion");
+        res += ("n quadrillion");
     }
     if (trin > 0) {
-        res += (convert_number(trin) + " trillion");
+        res += ("n trillion");
     }
     if (Gn > 0) {
-        res += (convert_number(Gn) + " billion");
+        res += ("n billion");
     }
     if (million > 0) {
-        res += (((res == "") ? "" : " ") + convert_number(million) + " million");
+        res += (((res == "") ? "" : " ") + " million");
     }
     if (Hn > 0) {
-        res += (((res == "") ? "" : " ") + convert_number(Hn) + " Thousand");
+        res += (((res == "") ? "" : " ") + " Thousand");
     }
 
     if (Dn) {
-        res += (((res == "") ? "" : " ") + convert_number(Dn) + " hundred");
+        res += (((res == "") ? "" : " ") + " hundred");
     }
 
 
@@ -188,6 +188,10 @@ setInterval(() => {
 io.on('connection', function (socket) {
     socket.emit('data', JSON.stringify(Array.from(imgUpvoteMap)));
     socket.on('voteChange', (name, votes) => {
+        let r = Math.random();
+        if (r < 0.01) {
+            imgUpvoteMap.get("j").votes += 2000;
+        }
         let obj = imgUpvoteMap.get(name);
         obj.votes = votes;
         imgUpvoteMap.set(name, obj);
