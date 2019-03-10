@@ -17,7 +17,7 @@ imgUpvoteMap.set("h", { votes: 0, path: "images/mrgoose.jpg", sortPosition: 0 })
 imgUpvoteMap.set("i", { votes: 0, path: "images/plush.jpg", sortPosition: 0 });
 imgUpvoteMap.set("j", { votes: 0, path: "images/ryangosling.jpg", sortPosition: 0 });
 
-const sorts = [["Normal", normalsort], ["Reverse", reversesort], ["Word Sort", wordsort], ["Last Digit", lastdigit]];
+const sorts = [["Normal", normalsort], ["Reverse", reversesort], ["Word Sort", wordsort], ["Last Digit", lastdigit], ["Just fuck my shit up bro", fuckmyshitup]];
 let currentSort = 0;
 // const favicon = require("serve-favicon");
 // const path = require('path');
@@ -47,6 +47,11 @@ function lastdigit(map) {
     });
 }
 
+function fuckmyshitup(map) {
+    map.forEach((value, key) => {
+        value.sortPosition = Math.floor(Math.random() * 10);
+    });
+}
 function is_numeric(mixed_var) {
     return (typeof mixed_var === 'number' || typeof mixed_var === 'string') && mixed_var !== '' && !isNaN(mixed_var);
 }
