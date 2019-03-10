@@ -177,12 +177,12 @@ setInterval(() => {
         if (currentSort >= sorts.length) {
             imgUpvoteMap.forEach((value, key) => {
                 //  value.votes = 0;
-                value.path = "images/jumpscare.jpg";
+                value.path = "images/barney.jpeg";
             });
 
             io.emit('data', JSON.stringify(Array.from(imgUpvoteMap)));
             io.emit('jumpscare', "hi");
-            setTimeout(() => { io.emit('endJumpscare'); io.emit('data', JSON.stringify(Array.from(imgUpvoteMap))); }, 500);
+            setTimeout(() => { io.emit('endJumpscare'); io.emit('data', JSON.stringify(Array.from(imgUpvoteMap))); }, 1000);
         }
         currentSort = currentSort % sorts.length;
         currentTime = 10;

@@ -1,9 +1,8 @@
-console.log("test");
+console.log("STOP TRYING TO HACK MY SERVER REEEEEEEEEEEEEEEEEEEEEEE");
 var socket = io();
 socket.emit('test', "hi");
 socket.on('data', (data) => {
     if (!isScared) {
-        console.log("new");
         data = new Map(JSON.parse(data));
         data.forEach((value, name) => {
             var el = document.getElementById(name);
@@ -16,13 +15,12 @@ socket.on('data', (data) => {
     }
 });
 let isScared = false;
-socket.on('jumpscare', () => { console.log("scared"); isScared = true });
+socket.on('jumpscare', () => { isScared = true });
 socket.on('endJumpscare', () => isScared = false);
 socket.on('newsort', (time) => {
     document.getElementById("num").innerHTML = time;
 });
 socket.on('newcolor', (color) => {
-    console.log(color);
     document.body.style.backgroundColor = color;
 })
 function send(name, votes) {
