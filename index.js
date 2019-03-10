@@ -39,10 +39,11 @@ function wordsort(map) {
 
 function lastdigit(map) {
     map.forEach((value, key) => {
-        if (value.votes < 0) {
-            value.votes *= -1;
+        var currvotes = value.votes
+        if (currvotes < 0) {
+            currvotes *= -1;
         }
-        value.sortPosition = value.votes % 10;
+        value.sortPosition = currvotes % 10;
     });
 }
 
